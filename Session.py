@@ -5,13 +5,13 @@ import json
 import os
 import requests
 import datetime
-from epic_mapping import epicMapping
 
 
 class SessionManager:
 
     def __init__(self):
-        self.session_headers = None
+        self.LS_endpoint = None
+        self.session_headers = {}
         self.session_account = None
         load_dotenv()
         self.username = os.environ.get("IG_USERNAME")
@@ -89,8 +89,13 @@ class SessionManager:
             self.session_headers["X-SECURITY-TOKEN"] = r.headers["X-SECURITY-TOKEN"]
             self.session_headers["CST"] = r.headers["CST"]
             self.dump_session_json()
+
             self.live_session = True
             self.session_account = json.loads(r.content.decode("utf-8"))['accountType']
+            self.LS_endpoint = json.loads(r.content.decode("utf-8"))['lightstreamerEndpoint']
+            with open('LS_endpoint.json', 'w') as f:
+                json.dump(self.LS_endpoint, f)
+
             print("SUCCESSFUL LOGIN AND DUMP OF SESSION HEADERS: ", r.content.decode("utf-8"))
 
         else:
