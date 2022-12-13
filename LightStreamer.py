@@ -14,8 +14,8 @@ def on_prices_update(item_update):
     logging.info("price: %s " % item_update)
 
 def on_account_update(balance_update):
-    print("balance: %s " % balance_update)
-    logging.info("balance: %s " % balance_update)
+    print("ACCOUNT UPDATE %s " % balance_update)
+    logging.info("ACCOUNT UPDATE: %s " % balance_update)
 
 def main():
     ig_service = IGService(config['IG_USERNAME'], config['IG_PASSWORD'], config['IG_API_KEY'], 'DEMO', config['CFDACC'])
@@ -33,12 +33,12 @@ def main():
     price_sub.addlistener(on_prices_update)
 
     # Registering the Subscription
-    sub_key_prices = ig_stream_service.ls_client.subscribe(price_sub)
+    # sub_key_prices = ig_stream_service.ls_client.subscribe(price_sub)
 
     # Making an other Subscription in MERGE mode
     acc_sub = Subscription(mode="MERGE",
                            items=["ACCOUNT:" + config['CFDACC']],
-                           fields=["AVAILABLE_CASH"]
+                           fields=["PNL", "DEPOSIT", "AVAILABLE_CASH", "PNL", "PNL_LR", "PNL_NLR", "MARGIN", "AVAILABLE_TO_DEAL", "EQUITY", "EQUITY_USED"]
                            )
 
     # Adding the "on_balance_update" function to Subscription

@@ -12,8 +12,9 @@ session.what_account()
 trade = Tr.Trade(session)
 Admin = Ad.Admin(session)
 Admin.get_positions()
-Admin.get_transactions()
+# Admin.get_transactions()
+tslamkt = Admin.search_market("TSLA")
+display(tslamkt.to_string())
 
-# tslamkt = admin.search_market("TSLA")
-# display(tslamkt.to_string())
-# trade.create_position(100, "USD", tslamkt.to_dict("records")[0], "SELL", uuid.uuid4().hex[:zr8])
+
+trade.create_position(150, "USD", tslamkt.to_dict("records")[0], "SELL", uuid.uuid4().hex[:8])
