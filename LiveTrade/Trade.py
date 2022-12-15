@@ -4,7 +4,7 @@ class Trade:
     def __init__(self, session_manger):
         self.session_manager = session_manger
 
-    def create_position(self, size, ccy, market, direction, uuid):
+    def create_position(self, size, ccy, market, direction, uuid) -> object:
         url = "https://demo-api.ig.com/gateway/deal/positions/otc"
         version = "1"
 

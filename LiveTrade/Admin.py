@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import datetime
+pd.set_option('display.max_columns', None)
 
 class Admin:
     def __init__(self, session_manger):
@@ -39,7 +40,7 @@ class Admin:
 
         if r.status_code == 200:
             markets = pd.DataFrame(json.loads(r.content.decode("utf-8"))["markets"])
-            print("MARKET SEARCH SUCCESS:")
+            print("MARKET SEARCH SUCCESS:", markets)
         else:
             print("ERROR MARKET SEARCH CALL:  ", r.status_code,  r.content.decode('utf-8'))
 

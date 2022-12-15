@@ -93,7 +93,7 @@ class SessionManager:
             self.live_session = True
             self.session_account = json.loads(r.content.decode("utf-8"))['accountType']
             self.LS_endpoint = json.loads(r.content.decode("utf-8"))['lightstreamerEndpoint']
-            with open('LS_endpoint.json', 'w') as f:
+            with open('../Lightstreamer/LS_endpoint.json', 'w') as f:
                 json.dump(self.LS_endpoint, f)
 
             print("SUCCESSFUL LOGIN AND DUMP OF SESSION HEADERS: ", r.content.decode("utf-8"))
