@@ -1,6 +1,6 @@
 import uuid
 
-class Trade:
+class Trader:
     def __init__(self, session_manger):
         self.session_manager = session_manger
 

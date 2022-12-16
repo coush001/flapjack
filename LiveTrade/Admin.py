@@ -40,11 +40,11 @@ class Admin:
 
         if r.status_code == 200:
             markets = pd.DataFrame(json.loads(r.content.decode("utf-8"))["markets"])
-            print("MARKET SEARCH SUCCESS:", markets)
+            print("MARKET SEARCH SUCCESS")
         else:
             print("ERROR MARKET SEARCH CALL:  ", r.status_code,  r.content.decode('utf-8'))
 
-        return markets.loc[(markets.instrumentType == instrumentType) & (markets.marketStatus == marketstatus)]
+        return markets.loc[(markets.instrumentType == instrumentType) & (markets.marketStatus == marketstatus)].iloc[0]
 
 
     def get_positions(self):
