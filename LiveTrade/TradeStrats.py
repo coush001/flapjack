@@ -1,5 +1,5 @@
 from utils import *
-from SQL.sqllite import *
+from FeedHandlers.stream_IG import *
 
 
 class FirstStrat:
@@ -8,7 +8,7 @@ class FirstStrat:
         self.Trader = Trader
         self.epic = epic
         self.Admin = Admin
-        self.conn = create_connection(r"../SQL/flapDB.db")
+        self.conn = create_connection(r"../FeedHandlers/flapDB.db")
         self.dir = None
         self.old_dir = None
         self.swing = False
@@ -30,8 +30,8 @@ class FirstStrat:
 
     # something that calcs indicators
     def calc_indicators(self):
-        self.MA_60 = self.pull_data(prev_secs=200)['bid'].mean()
-        self.MA_240 = self.pull_data(prev_secs=400)['bid'].mean()
+        self.MA_60 = self.pull_data(prev_secs=20)['bid'].mean()
+        self.MA_240 = self.pull_data(prev_secs=40)['bid'].mean()
         if self.MA_240 < self.MA_60:
             self.dir = "RISING"
         elif self.MA_240 > self.MA_60:
@@ -55,7 +55,7 @@ class FirstStrat:
                 else:
                     DIR = "SELL"
                 print("TRADE CALL:", DIR)
-                self.Trader.create_position(1, "GBP", self.Admin.search_market("EURGBP", "CURRENCIES"), DIR, get_uuid())
+                self.Trader.create_position(15, "GBP", self.Admin.search_market("EURGBP", "CURRENCIES"), DIR, get_uuid())
             time.sleep(2)
 
         return
